@@ -1,47 +1,333 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشاريعي | الشريف عبد النبي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Ahmed Wahed | AI Engineer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
-        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        nav { background: #1e293b; padding: 15px; display: flex; justify-content: center; gap: 20px; }
-        nav a { color: white; text-decoration: none; font-weight: bold; }
-        .container { padding: 50px 20px; max-width: 1000px; margin: auto; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { background: #1e293b; border-radius: 20px; padding: 30px; text-align: right; border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; }
-        .card:hover { transform: translateY(-10px); border-color: #00d2ff; box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2); }
-        .card i { font-size: 50px; color: #00d2ff; margin-bottom: 20px; }
-        .card h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        .card p { color: #94a3b8; line-height: 1.6; }
-        .badge { background: rgba(0, 210, 255, 0.1); color: #00d2ff; padding: 5px 12px; border-radius: 10px; font-size: 0.8rem; }
+        /* --- VARIABLES --- */
+        :root {
+            --bg-body: #090c10;
+            --bg-gradient: radial-gradient(circle at 15% 50%, rgba(88, 101, 242, 0.15), transparent 25%), radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
+            --card-bg: rgba(22, 27, 34, 0.8);
+            --border-color: rgba(48, 54, 61, 0.7);
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-primary: #5865F2; /* Electric Blue */
+            --accent-secondary: #8B5CF6; /* Violet */
+            --gradient-text: linear-gradient(135deg, #5865F2 0%, #8B5CF6 100%);
+            --glow: 0 0 20px rgba(88, 101, 242, 0.4);
+            
+            --font-main: 'Outfit', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 9999; pointer-events: none;
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--text-main); }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 1px solid var(--accent-primary);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        body.hovering .cursor-outline {
+            width: 60px; height: 60px; background-color: rgba(88, 101, 242, 0.1);
+            border-color: var(--accent-secondary); mix-blend-mode: difference;
+        }
+
+        /* --- PARTICLES --- */
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+
+        /* --- RTL --- */
+        body.rtl { direction: rtl; font-family: var(--font-ar); text-align: right; }
+        body.rtl .nav-links { flex-direction: row-reverse; }
+        body.rtl .timeline { border-left: none; border-right: 2px solid var(--accent-primary); padding-right: 30px; padding-left: 0; }
+        body.rtl .timeline-item::before { left: auto; right: -11px; }
+        body.rtl .contact-info { text-align: right; }
+        body.rtl .whatsapp-float { left: 30px; right: auto; }
+        body.rtl .mobile-menu { right: auto; left: -100%; }
+        body.rtl .mobile-menu.active { left: 0; }
+
+        /* --- NAV --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; position: fixed; width: 90%; top: 20px; left: 5%; z-index: 1000;
+            background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color); border-radius: 50px; transition: 0.3s;
+        }
+        nav.scrolled { padding: 15px 5%; background: rgba(9, 12, 16, 0.95); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        .logo { font-family: var(--font-code); font-size: 1.5rem; font-weight: 800; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-main); font-size: 0.9rem; font-weight: 500; transition: 0.3s; text-decoration: none; }
+        .nav-links a:hover { color: var(--accent-primary); }
+        .lang-btn { background: rgba(88, 101, 242, 0.1); border: 1px solid var(--accent-primary); color: var(--accent-primary); padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; cursor: none; transition: 0.3s; }
+        .hamburger { display: none; font-size: 1.5rem; color: var(--text-main); cursor: none; }
+        
+        /* Mobile Menu */
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: rgba(9, 12, 16, 0.98); backdrop-filter: blur(20px); z-index: 1002; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.4s ease; border-left: 1px solid var(--border-color); }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu a { font-size: 1.5rem; margin: 20px 0; color: var(--text-main); text-decoration: none; }
+        .mobile-close { position: absolute; top: 30px; right: 30px; font-size: 2rem; cursor: none; }
+
+        /* --- HERO --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 150px 10% 50px; max-width: 1400px; margin: 0 auto; gap: 60px; }
+        .hero-content { flex: 1; z-index: 2; }
+        .hero-img-container { flex: 1; display: flex; justify-content: center; position: relative; z-index: 1; }
+        .profile-img { width: 380px; height: 380px; object-fit: cover; border-radius: 50%; border: 4px solid transparent; background: linear-gradient(var(--bg-body), var(--bg-body)) padding-box, var(--gradient-text) border-box; box-shadow: 0 0 50px rgba(88, 101, 242, 0.2); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .hero h1 { font-family: var(--font-code); color: var(--accent-primary); font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; }
+        
+        /* TYPEWRITER STYLES */
+        .hero h2 { 
+            font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 15px; 
+            min-height: 120px; /* Reserve space */
+            background: linear-gradient(to right, #fff, #babbbd); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .type-cursor {
+            display: inline-block; width: 4px; height: 1em; background-color: var(--accent-secondary);
+            margin-left: 5px; animation: blink 1s infinite; vertical-align: middle;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .hero p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; max-width: 600px; }
+        
+        .btn-main { padding: 16px 32px; background: var(--accent-primary); color: white; border-radius: 12px; font-weight: 600; border: none; transition: 0.3s; box-shadow: 0 4px 20px rgba(88, 101, 242, 0.4); display: inline-block; text-decoration: none; }
+        .btn-main:hover { transform: translateY(-3px); background: var(--accent-secondary); }
+        .btn-outline { padding: 16px 32px; background: transparent; color: var(--text-main); border-radius: 12px; font-weight: 600; border: 1px solid var(--border-color); transition: 0.3s; text-decoration: none; margin-left: 15px; display: inline-block; }
+        .btn-outline:hover { border-color: var(--text-main); background: rgba(255,255,255,0.05); }
+
+        /* --- SECTIONS --- */
+        .section { padding: 100px 10%; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-size: 2.2rem; margin-bottom: 60px; display: flex; align-items: center; font-weight: 800; }
+        .section-title::after { content: ""; display: block; width: 200px; height: 2px; background: var(--border-color); margin-left: 20px; }
+        .section-title span { color: var(--accent-primary); margin-right: 10px; }
+
+        /* --- TIMELINE --- */
+        .timeline { border-left: 2px solid var(--accent-primary); padding: 20px 0; }
+        .timeline-item { position: relative; padding-left: 30px; padding-bottom: 40px; }
+        .timeline-item::before { content: ""; position: absolute; left: -9px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--bg-body); border: 3px solid var(--accent-secondary); }
+        .timeline-card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); transition: 0.3s; position: relative; overflow: hidden; }
+        .timeline-card:hover { transform: translateX(10px); border-color: var(--accent-primary); }
+
+        /* --- SKILLS --- */
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 15px; }
+        .skill-tag { background: rgba(88, 101, 242, 0.1); color: var(--text-main); padding: 12px 24px; border-radius: 8px; font-family: var(--font-code); font-size: 0.9rem; border: 1px solid transparent; transition: 0.3s; }
+        .skill-tag:hover { border-color: var(--accent-primary); box-shadow: var(--glow); transform: translateY(-3px); background: rgba(88, 101, 242, 0.2); }
+
+        /* --- PROJECTS --- */
+        .coming-soon { text-align: center; padding: 80px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border-color); }
+        .rocket-anim { font-size: 4rem; margin-bottom: 20px; display: inline-block; animation: rocket 2s infinite alternate; }
+        @keyframes rocket { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+
+        /* --- CONTACT --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; }
+        .form-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 8px; color: white; margin-bottom: 20px; font-family: var(--font-main); transition: 0.3s; }
+        .form-input:focus { outline: none; border-color: var(--accent-primary); background: rgba(88, 101, 242, 0.05); }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: 0.3s; z-index: 999; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column-reverse; padding-top: 140px; text-align: center; }
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .profile-img { width: 280px; height: 280px; }
+            .hero h2 { font-size: 2.5rem; min-height: auto; }
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">الرئيسية</a>
-        <a href="about.html">من أنا</a>
-        <a href="projects.html">مشاريعي</a>
+
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+    <div id="particles-js"></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-close" onclick="toggleMenu()">&times;</span>
+        <a href="#about" onclick="toggleMenu()">About</a>
+        <a href="#education" onclick="toggleMenu()">Journey</a>
+        <a href="#projects" onclick="toggleMenu()">Projects</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+    </div>
+
+    <nav id="navbar">
+        <div class="logo">&lt;AW/&gt;</div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <ul class="nav-links">
+                <li><a href="#about" data-i18n="nav_about">About</a></li>
+                <li><a href="#education" data-i18n="nav_edu">Journey</a></li>
+                <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+            </ul>
+            <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">العربية</button>
+            <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
     </nav>
-    <div class="container">
-        <h1>معرض أعمالي التقنية</h1>
-        <div class="grid">
-            <div class="card">
-                <i class="fas fa-microchip"></i>
-                <span class="badge">C++</span>
-                <h3>نظام الأنظمة المدمجة</h3>
-                <p>تطوير برمجيات عالية الأداء للتحكم في الأجهزة والعمليات المنطقية المعقدة.</p>
-            </div>
-            <div class="card">
-                <i class="fab fa-python"></i>
-                <span class="badge">Python</span>
-                <h3>تحليل البيانات والذكاء</h3>
-                <p>بناء أدوات ذكية لتحليل البيانات الضخمة وأتمتة العمليات اليومية بكفاءة.</p>
+
+    <section class="hero" id="about">
+        <div class="hero-content" data-aos="fade-up">
+            <h1 data-i18n="hero_hi">Hi, I'm Ahmed Wahed</h1>
+            <h2><span id="type-text"></span><span class="type-cursor"></span></h2>
+            
+            <p data-i18n="hero_desc">
+                Transforming complex data into intelligent solutions. Passionate about Machine Learning, Data Engineering, and building the future of AI.
+            </p>
+            
+            <div>
+                <a href="#projects" class="btn-main" data-i18n="hero_btn">View Work</a>
+                <a href="#contact" class="btn-outline" data-i18n="hero_contact">Contact Me</a>
             </div>
         </div>
-    </div>
-</body>
-</html>
+        
+        <div class="hero-img-container" data-aos="zoom-in" data-aos-delay="200">
+            <img src="profile.jpg" alt="Ahmed Wahed" class="profile-img">
+        </div>
+    </section>
 
+    <section id="education" class="section">
+        <h2 class="section-title" data-aos="fade-right"><span>01.</span> <span data-i18n="sec_edu">My Journey</span></h2>
+        <div class="timeline" data-aos="fade-up">
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <span style="color:var(--accent-primary); font-family:var(--font-code);">Present</span>
+                    <h3 data-i18n="edu_uni">Aqaba University of Technology</h3>
+                    <p style="color:var(--text-muted);" data-i18n="edu_degree">B.Sc. in Artificial Intelligence</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <span style="color:var(--accent-primary); font-family:var(--font-code);">2025</span>
+                    <h3 data-i18n="cert1_title">Programming Fundamentals</h3>
+                    <p style="color:var(--text-muted);" data-i18n="cert1_desc">Route IT Training Center (C++, OOP)</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <span style="color:var(--accent-primary); font-family:var(--font-code);">2024</span>
+                    <h3 data-i18n="cert2_title">Cyber Warriors (CTF)</h3>
+                    <p style="color:var(--text-muted);" data-i18n="cert2_desc">NCSC Jordan (40 Hours Intensive)</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <span style="color:var(--accent-primary); font-family:var(--font-code);">2024</span>
+                    <h3 data-i18n="cert4_title">PMP & Digital Marketing</h3>
+                    <p style="color:var(--text-muted);" data-i18n="cert4_desc">The Hope International Company</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title" data-aos="fade-right"><span>02.</span> <span data-i18n="sec_skills">Tech Stack</span></h2>
+        <div class="skills-grid" data-aos="fade-up">
+            <div class="skill-tag"><i class="fas fa-code"></i> C#</div>
+            <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
+            <div class="skill-tag"><i class="fas fa-cogs"></i> C++</div>
+            <div class="skill-tag"><i class="fas fa-database"></i> SQL</div>
+            <div class="skill-tag"><i class="fab fa-git-alt"></i> Git</div>
+            <div class="skill-tag"><i class="fas fa-brain"></i> LLMs</div>
+            <div class="skill-tag"><i class="fas fa-network-wired"></i> Data Eng</div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title" data-aos="fade-right"><span>03.</span> <span data-i18n="sec_projects">Projects</span></h2>
+        <div class="coming-soon" data-aos="zoom-in">
+            <div class="rocket-anim">🚀</div>
+            <h3 style="font-size: 2rem; margin-bottom: 10px;" data-i18n="soon_title">Something Big is Coming</h3>
+            <p style="color: var(--text-muted);" data-i18n="soon_desc">Building the strongest AI projects. Stay Tuned.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title" data-aos="fade-right"><span>04.</span> <span data-i18n="sec_contact">Contact</span></h2>
+        <div class="contact-grid" data-aos="fade-up">
+            <div class="contact-info">
+                <div class="info-box">
+                    <div style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;" data-i18n="contact_phone">PHONE</div>
+                    <div style="font-size:1.2rem; font-weight:600;">+20 115 860 7724</div>
+                </div>
+                <div class="info-box">
+                    <div style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;" data-i18n="contact_email">EMAIL</div>
+                    <div>ahmedwheed759@gmail.com</div>
+                </div>
+                <div class="info-box">
+                    <div style="display: flex; gap: 15px; font-size: 1.5rem; margin-top: 10px;">
+                        <a href="https://linkedin.com/in/ahmed-wahed-60542435a" target="_blank" style="color:var(--text-muted); transition:0.3s;"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Ahmedw7heed" target="_blank" style="color:var(--text-muted); transition:0.3s;"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <form action="https://formspree.io/f/mvzgzpll" method="POST">
+                <input type="text" name="name" class="form-input" placeholder="Name" required>
+                <input type="email" name="email" class="form-input" placeholder="Email" required>
+                <textarea name="message" class="form-input" rows="5" placeholder="Message" required></textarea>
+                <button type="submit" class="btn-main" style="width: 100%;" data-i18n="form_btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 0.9rem; margin-top: 50px; border-top: 1px solid var(--border-color);">
+        <p>Designed & Built by Ahmed Wahed ©️ 2026</p>
+    </footer>
+
+    <a href="https://wa.me/201158607724" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        AOS.init({ once: true, duration: 800 });
+
+        // --- TYPEWRITER LOGIC ---
+        const titles = {
+            en: "AI Student | Future Machine Learning Engineer | Passionate About Intelligent Systems",
+            ar: "طالب ذكاء اصطناعي | مهندس تعلم آلة مستقبلي | شغوف بالأنظمة الذكية"
+        };
+        
+        let currentText = titles.en;
+        let charIndex = 0;
+        let typeTimeout;
+
+        function startTypewriter(text) {
+            const el = document.getElementById('type-text');
+            clearTimeout(typeTimeout);
+            el.textContent = "";
+            charIndex = 0;
+            currentText = text;
+            
+            function type() {
+                if (charIndex < currentText.length) {
+                    el.textContent += currentText.charAt(charIndex);
+                    charIndex++;
+                    typeTimeout = setTimeout(type, 50); // Speed: 50ms
+                }
+            }
+            type();
+        }
