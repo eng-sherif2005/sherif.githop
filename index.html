@@ -6,36 +6,108 @@
     <title>الشريف عبد النبي | الرئيسية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --main-color: #8b5cf6; --bg-dark: #0d1117; }
-        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
-        nav { background: #161b22; padding: 15px; display: flex; justify-content: center; gap: 20px; border-bottom: 1px solid #30363d; position: sticky; top: 0; z-index: 1000; }
-        nav a { color: white; text-decoration: none; font-weight: bold; transition: 0.3s; padding: 5px 10px; }
+        :root { --main-color: #8b5cf6; --bg-dark: #0d1117; --card-bg: #161b22; }
+        
+        body { 
+            background-color: var(--bg-dark); 
+            color: white; 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* شريط التنقل العلوي */
+        nav { 
+            background: var(--card-bg); 
+            padding: 15px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+            border-bottom: 1px solid #30363d;
+        }
+        nav a { color: white; text-decoration: none; font-weight: bold; transition: 0.3s; }
         nav a:hover { color: var(--main-color); }
-        .container { padding: 40px 20px; max-width: 900px; margin: auto; }
-        .profile-img { width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--main-color); object-fit: cover; box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
-        h1 { color: #58a6ff; font-size: 2.5rem; margin: 20px 0; }
-        .hero-text { font-size: 1.2rem; color: #8b949e; line-height: 1.8; margin-bottom: 30px; }
-        .social-links { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
-        .social-links a { color: white; font-size: 28px; transition: 0.3s; }
-        .social-links a:hover { color: var(--main-color); transform: translateY(-5px); }
+
+        /* حاوية العناصر تحت بعضها */
+        .hero-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column; /* جعل العناصر تحت بعض */
+            align-items: center;    /* توسيط العناصر بالعرض */
+            justify-content: center; /* توسيط العناصر بالطول */
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .profile-img { 
+            width: 180px; 
+            height: 180px; 
+            border-radius: 50%; 
+            border: 4px solid var(--main-color); 
+            object-fit: cover; 
+            margin-bottom: 25px; /* مسافة تحت الصورة */
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.2);
+        }
+
+        h1 { 
+            font-size: 2.8rem; 
+            margin: 10px 0; 
+            color: #58a6ff;
+        }
+
+        .description {
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: #8b949e;
+            line-height: 1.8;
+            margin-bottom: 30px; /* مسافة تحت الوصف */
+        }
+
+        .social-links { 
+            display: flex; 
+            gap: 25px; 
+            margin-top: 10px;
+        }
+        
+        .social-links a { 
+            color: white; 
+            font-size: 32px; 
+            transition: 0.3s; 
+        }
+        
+        .social-links a:hover { 
+            color: var(--main-color); 
+            transform: scale(1.2); 
+        }
+
     </style>
 </head>
 <body>
+
     <nav>
         <a href="index.html">الرئيسية</a>
         <a href="about.html">من أنا</a>
         <a href="projects.html">مشاريعي</a>
     </nav>
-    <div class="container">
-        <img src="IMG_2171.jpeg" class="profile-img">
+
+    <div class="hero-section">
+        <img src="IMG_2171.jpeg" alt="الشريف عبد النبي" class="profile-img">
+        
         <h1>الشريف عبد النبي</h1>
-        <p class="hero-text">طالب هندسة برمجيات | مبرمج بلغة C++ و Python شغوف ببناء حلول تقنية مبتكرة.</p>
+        
+        <p class="description">
+            أهلاً بك في عالمي الرقمي. أنا طالب هندسة برمجيات، أطمح لترك بصمة في عالم التكنولوجيا من خلال لغات البرمجة القوية مثل ++C و Python.
+        </p>
+        
         <div class="social-links">
-             <a href="https://github.com/eng-sherif2005"><i class="fab fa-github"></i></a>
-             <a href="https://www.facebook.com/share/17kmZSixW6/?mibextid=wwXIfr"><i class="fab fa-facebook"></i></a>
-             <a href="https://www.instagram.com/eng_shef0?igsh=Z2lwZTl6dnRwemhs&utm_source=qr"><i class="fab fa-instagram"></i></a>
+             <a href="https://github.com/eng-sherif2005" target="_blank"><i class="fab fa-github"></i></a>
+             <a href="https://www.facebook.com/share/17kmZSixW6/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+             <a href="https://www.instagram.com/eng_shef0?igsh=Z2lwZTl6dnRwemhs&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
+
 </body>
 </html>
 
