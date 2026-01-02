@@ -8,53 +8,32 @@
     <style>
         :root { --main-color: #8b5cf6; --bg-dark: #0d1117; }
         body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
-        
         nav { background: #161b22; padding: 15px; display: flex; justify-content: center; gap: 20px; border-bottom: 1px solid #30363d; }
-        nav a { color: white; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
         nav a:hover { color: var(--main-color); }
-
         .container { padding: 40px 20px; max-width: 1000px; margin: auto; }
-        h1 { color: #58a6ff; margin-bottom: 40px; }
-
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 25px; text-align: right; transition: 0.3s; position: relative; overflow: hidden; }
-        .card:hover { transform: translateY(-10px); border-color: var(--main-color); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2); }
-        .card h3 { color: var(--main-color); margin-top: 0; font-size: 1.4rem; }
-        .card p { color: #8b949e; line-height: 1.6; font-size: 1rem; }
-        .tag { background: #238636; color: white; padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; text-align: right; margin-bottom: 20px; }
+        h3 { color: var(--main-color); margin-top: 0; }
+        p { color: #8b949e; line-height: 1.6; }
     </style>
 </head>
 <body>
-
     <nav>
         <a href="index.html">الرئيسية</a>
         <a href="about.html">من أنا</a>
         <a href="projects.html">مشاريعي</a>
     </nav>
-
     <div class="container">
         <h1>معرض أعمالي البرمجية</h1>
-
-        <div class="projects-grid">
-            <div class="card">
-                <span class="tag">C++</span>
-                <h3>نظام إدارة البيانات</h3>
-                <p>تطبيق برمجي متقدم يعتمد على لغة C++ لإدارة وتنظيم قواعد البيانات البسيطة والعمليات المنطقية.</p>
-            </div>
-
-            <div class="card">
-                <span class="tag">Python</span>
-                <h3>أداة أتمتة ذكية</h3>
-                <p>سكربت تم تطويره باستخدام Python لتنفيذ المهام المتكررة تلقائياً ومعالجة النصوص والملفات.</p>
-            </div>
-
-            <div class="card">
-                <span class="tag">Web Design</span>
-                <h3>موقعي الشخصي</h3>
-                <p>تصميم وتطوير موقع ويب متكامل (هذا الموقع) باستخدام HTML و CSS ليكون واجهة احترافية.</p>
-            </div>
+        <div class="card">
+            <h3>نظام إدارة المستشفيات (C++)</h3>
+            <p>مشروع برمجي متطور لتنظيم بيانات المرضى والمواعيد باستخدام لغة C++.</p>
+        </div>
+        <div class="card">
+            <h3>بوت ذكاء اصطناعي (Python)</h3>
+            <p>تطبيق بلغة Python للرد الآلي وتحليل النصوص البسيطة.</p>
         </div>
     </div>
-
 </body>
 </html>
+
